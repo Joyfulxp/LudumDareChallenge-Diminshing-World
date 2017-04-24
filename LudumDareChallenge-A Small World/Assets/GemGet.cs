@@ -5,11 +5,12 @@ using UnityEngine;
 public class GemGet : MonoBehaviour {
 
     public GameObject gm;
+    public int id;
     public int level;//1 for 
     public int kind;//1 for speed,2 for jump,3 for shoot
 	// Use this for initialization
 	void Start () {
-        gm = GameObject.Find("GameManager");
+        
 	}
 	
 	// Update is called once per frame
@@ -22,6 +23,8 @@ public class GemGet : MonoBehaviour {
         {
             BasicParams bp = collision.GetComponent<BasicParams>();
             bp.getGem(kind);
+            gm = GameObject.Find("GameManager");
+            gm.GetComponent<LevelLoader>().disableGem(level, id);
             Destroy(this.gameObject);
         }
     }

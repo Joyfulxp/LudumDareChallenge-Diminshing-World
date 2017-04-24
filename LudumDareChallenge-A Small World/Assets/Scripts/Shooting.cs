@@ -8,7 +8,7 @@ public class Shooting : MonoBehaviour {
     public float interval=0.5f;
     public float time;
     public GameObject rightShoot,leftShoot;
-    public float bulletDamageMultiplier=1.0f;
+    public int bulletDamageMultiplier=1;
     public bool canShoot=false;
 	// Use this for initialization
 	void Start () {
@@ -37,6 +37,10 @@ public class Shooting : MonoBehaviour {
                 }
 
             }
+        }
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            GetComponent<BasicParams>().UseSeed();
         }
     }
 }

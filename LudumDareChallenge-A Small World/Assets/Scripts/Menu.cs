@@ -21,6 +21,7 @@ public class Menu : MonoBehaviour {
         float sb_height = Screen.height * 0.05f;
         if(GUI.Button(new Rect(new Vector2(Screen.width * 0.5f - sb_width / 2, Screen.height * 0.7f - sb_height / 2), new Vector2(sb_width, sb_height)), startButton,sbStyle))
         {
+            //SceneManager.LoadScene("BossHorizontal");
             SceneManager.LoadScene("Tutorial");
         }
 

@@ -21,6 +21,7 @@ public class BorderPlayerCheck : MonoBehaviour {
             if (collision.GetComponent<BasicParams>().Seeds > 0)
             {
                 collision.GetComponent<BasicParams>().Seeds -= 1;
+                collision.transform.position = new Vector3(1, 1, 1);
                 SceneManager.LoadScene("Shelter");
             }
             else

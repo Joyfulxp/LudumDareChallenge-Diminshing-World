@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShrinkingBorders : MonoBehaviour {
 
@@ -15,8 +16,8 @@ public class ShrinkingBorders : MonoBehaviour {
     // Use this for initialization
     void Start () {
         shrinkingScale = new Vector3(1, 1, 1);
-        h_Speed = 5;
-        v_Speed = 5;
+        h_Speed = 7;
+        v_Speed = 7;
     }
 
     // Update is called once per frame
@@ -31,7 +32,10 @@ public class ShrinkingBorders : MonoBehaviour {
         doors.Remove(null);
         if(doors.Count==0)//transform.localScale.x<0.08f||transform.localScale.y<0.08f)
         {
-            isShrinking = false;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<BasicParams>().Seeds -= 1;
+            player.transform.position = new Vector3(1, 1, 1);
+            SceneManager.LoadScene("Shelter");
         }
         
     }
@@ -39,7 +43,7 @@ public class ShrinkingBorders : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag=="Obstacles" || collision.tag == "Door"|| collision.tag == "Gem")
+        if(collision.tag=="Obstacles" || collision.tag == "Door"|| collision.tag == "Gem"||collision.tag=="Enemy"||collision.tag=="BossRoom")
         {
             Debug.Log("triggered");
 
@@ -49,7 +53,7 @@ public class ShrinkingBorders : MonoBehaviour {
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Obstacles"||collision.tag=="Door")
+        if (collision.tag == "Obstacles"||collision.tag=="Door"||collision.tag=="Enemy")
         {
             Destroy(collision.gameObject);
         }

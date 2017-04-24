@@ -15,7 +15,7 @@ public class TestOnGround : MonoBehaviour {
 	}
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.tag=="Obstacles"||collision.tag=="Border")
+        if(collision.tag=="Obstacles"||collision.tag=="Border"||collision.tag=="BossRoom")
         { transform.parent.GetComponent<Movement>().canJump = true; }
     }
 }

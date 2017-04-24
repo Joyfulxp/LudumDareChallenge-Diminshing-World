@@ -2,10 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BasicParams : MonoBehaviour {
 
     public GameObject gm;
+    public GameObject bomb;
+    public Sprite substitute;
+    public bool avatarChanged = false;
     public int HP;
     public int Seeds;
     public int speedLevel;
@@ -14,7 +18,7 @@ public class BasicParams : MonoBehaviour {
     public int gemsCollected;
     public bool HorizonDefeated;
     public bool VerticalDefeated;
-    public bool DeadlineDefeated;
+    //public bool DeadlineDefeated;
 
     public bool atDoor=false;
     public int doorNum;
@@ -31,8 +35,8 @@ public class BasicParams : MonoBehaviour {
         gemsCollected = 0;
         HorizonDefeated = false;
         VerticalDefeated = false;
-        DeadlineDefeated = false;
-	}
+        //DeadlineDefeated = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -73,6 +77,7 @@ private void AdjustSpeed(int speedLevel)
             case 1: { mov.jump.y = 200f; break; }
             case 2: { mov.jump.y = 250f; break; }
             case 3: { mov.jump.y = 300f; break; }
+            case 4: { mov.jump.y = 350f; break; }
             default: { Debug.Log("too many jump gems?"); break; }
         }
     }
@@ -82,20 +87,28 @@ private void AdjustSpeed(int speedLevel)
         Shooting shot = GetComponent<Shooting>();
         switch (shootLevel)
         {
-            case 1: { shot.canShoot = true; shot.bulletDamageMultiplier = 1.0f; break; }
-            case 2: { shot.bulletDamageMultiplier = 2.0f; break; }
-            case 3: { shot.bulletDamageMultiplier = 3.0f; break; }
+            case 1: { shot.canShoot = true; shot.bulletDamageMultiplier = 1; break; }
+            case 2: { shot.bulletDamageMultiplier = 2; break; }
+            case 3: { shot.bulletDamageMultiplier = 4; break; }
+            case 4: { shot.bulletDamageMultiplier = 8; break; }
+            case 5: { shot.bulletDamageMultiplier = 16; break; }
             default: { Debug.Log("too many shoot gems?"); break; }
         }
     }
     public void UseSeed()
     {
-        if(Seeds>0)
-        { Seeds -= 1; }
+        if (Seeds > 0)
+        { Seeds -= 1; }// GameObject[] god = GameObject.FindGameObjectsWithTag("Bullet");foreach (GameObject i in god) { Destroy(i); };Instantiate(bomb, transform.position, Quaternion.identity); }
         else
         { GameOver(); }
     }
 
 
-    public void GameOver() { }
+    public void GameOver()
+    {
+        Destroy(gm);
+        Destroy(GameObject.FindGameObjectWithTag("Border"));
+        Destroy(this.gameObject);
+        SceneManager.LoadScene("Main");
+    }
 }

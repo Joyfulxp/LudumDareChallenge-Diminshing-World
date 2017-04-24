@@ -11,6 +11,9 @@ public class Score : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+	    if(Input.GetKeyUp(KeyCode.Q))
+        {
+            GetComponent<GMDontDestroyOnLoad>().gemcollect.SetActive(!GetComponent<GMDontDestroyOnLoad>().gemcollect.activeInHierarchy);
+        }	
 	}
 }
